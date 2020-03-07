@@ -353,17 +353,9 @@ class ListViewDisplay
                 }
             }
         } else {
-            // delete
-            if (
-                ACLController::checkAccess($this->seed->module_dir, 'delete', true)
-                && $this->delete
-            ) {
-                if ($this->show_action_dropdown_as_delete) {
-                    $menuItems[] = $this->buildDeleteLink($location);
-                } else {
-                    $menuItems[] = $this->buildBulkActionButton($location);
-                }
-            }
+
+            // Bulk Action button always
+            $menuItems[] = $this->buildBulkActionButton($location);
 
             // Compose email
             if (isset($this->email) && $this->email === true) {
@@ -412,10 +404,10 @@ class ListViewDisplay
                 $menuItems[] = $item;
             }
 
-
+            // delete
             if (
-                $this->delete
-                && !$this->show_action_dropdown_as_delete
+                ACLController::checkAccess($this->seed->module_dir, 'delete', true)
+                && $this->delete
             ) {
                 $menuItems[] = $this->buildDeleteLink($location);
             }
